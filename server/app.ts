@@ -18,9 +18,18 @@ import logger from './utils/logger';
 const app: Express = express();
 
 app.use(helmet({ contentSecurityPolicy: false }));
+const isOriginAllowed = (origin: string): boolean =>
+  config.clientUrl.some(
+    (allowed) =>
+      origin === allowed ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.onrender.com') ||
+      /^https?:\/\/localhost(:\d+)?$/.test(origin)
+  );
+
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || config.clientUrl.includes(origin)) {
+    if (!origin || isOriginAllowed(origin)) {
       callback(null, true);
     } else {
       logger.warn(`CORS blocked origin: ${origin}`);
