@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import config from '../config/environment';
 import { sendSuccess } from '../utils/response';
@@ -7,7 +7,7 @@ const router = Router();
 
 const startTime = Date.now();
 
-router.get('/', (_req, res) => {
+router.get('/', (_req: Request, res: Response) => {
   const mongoState = mongoose.connection.readyState;
   const mongoStatus: Record<number, string> = {
     0: 'disconnected',

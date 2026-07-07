@@ -1,6 +1,6 @@
 import compression from 'compression';
 import cors from 'cors';
-import express, { Express } from 'express';
+import express, { Express, Request, Response } from 'express';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import healthRoutes from './routes/health';
@@ -26,7 +26,7 @@ app.use(requestDuration);
 
 app.use(globalLimiter);
 
-app.get('/', (_req, res) => {
+app.get('/', (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: 'Customer Feedback Platform API is running'
