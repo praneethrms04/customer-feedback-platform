@@ -12,20 +12,19 @@ import { globalLimiter } from './middlewares/rateLimiter';
 import { httpLogger, requestDuration } from './middlewares/requestLogger';
 import { errorHandler } from './middlewares/errorHandler';
 import { notFound } from './middlewares/notFound';
+import config from './config/environment';
+import logger from './utils/logger';
 
 const app: Express = express();
 
 app.use(helmet({ contentSecurityPolicy: false }));
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:3000')
-  .split(',')
-  .map((s) => s.trim());
-
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || config.clientUrl.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      logger.warn(`CORS blocked origin: ${origin}`);
+      callback(null, false);
     }
   },
   credentials: true,
