@@ -56,7 +56,7 @@ The client runs on `http://localhost:3000`, the server on `http://localhost:5000
 
 On first run, the server seeds a default admin:
 
-- Email: `admin@example.com`
+- Email: `admin@feedbackhub.com`
 - Password: `admin123`
 
 **Change this in production.**

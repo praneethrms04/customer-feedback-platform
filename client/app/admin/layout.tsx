@@ -13,7 +13,7 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { AuthProvider, AuthContext } from "@/providers/auth-provider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -96,6 +96,16 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
   const isLoginPage = pathname === "/admin/login";
 
+  useEffect(() => {
+    if (!auth) return;
+
+    if (auth.isAuthenticated && isLoginPage) {
+      router.replace("/admin");
+    } else if (!auth.isAuthenticated && !isLoginPage) {
+      router.replace("/admin/login");
+    }
+  }, [auth, isLoginPage, router]);
+
   if (!auth) return null;
 
   if (auth.isLoading) {
@@ -106,15 +116,9 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!auth.isAuthenticated && !isLoginPage) {
-    router.replace("/admin/login");
-    return null;
-  }
+  if (!auth.isAuthenticated && !isLoginPage) return null;
 
-  if (auth.isAuthenticated && isLoginPage) {
-    router.replace("/admin");
-    return null;
-  }
+  if (auth.isAuthenticated && isLoginPage) return null;
 
   return <>{children}</>;
 }
