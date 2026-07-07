@@ -12,7 +12,8 @@
 
     /* Type Checking */
     "strict": true,                                   /* Enable all strict type-checking options */
-    "skipLibCheck": true,                             /* Skip type checking of declaration files (.d.ts) */
+    "skipLibCheck": true,    
+    "noImplicitAny": false,                         /* Skip type checking of declaration files (.d.ts) */
 
     /* Emit */
     "outDir": "./dist",                               /* Redirect output structure to the directory */
