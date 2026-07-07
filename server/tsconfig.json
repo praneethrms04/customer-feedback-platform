@@ -2,8 +2,9 @@
 "compilerOptions": {
     /* Language and Environment */
     "target": "ES2022",                               /* Specify ECMAScript target version */
-    "module": "NodeNext",                             /* Specify module code generation */
+    "module": "NodeNext",        
     "moduleResolution": "NodeNext",                   /* Determine how modules get resolved */
+    "types": ["node"]                 ,    /* Specify module code generation */
     "lib": ["ES2022", "DOM"],                         /* Specify library files to be included */
 
     /* Interop Constraints */

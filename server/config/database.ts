@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 import config from './environment';
 import logger from '../utils/logger';
 
-const connectToMongoDB = async (): Promise<typeof mongoose> => {
+const connectToMongoDB = async (): Promise<Mongoose> => {
   try {
     if (!config.mongoUri) {
       throw new Error('MongoDB connection string is missing');
